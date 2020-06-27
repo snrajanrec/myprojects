@@ -1,0 +1,63 @@
+
+plugins {
+	id 'org.springframework.boot' version '2.2.0.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+	id 'java'
+	id "net.linguica.maven-settings" version "0.5"
+	
+
+}
+
+group = 'com.ms.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '8'
+
+    ext {
+        springBootVersion = '2.4.0-SNAPSHOT'
+	set('springCloudVersion', "Hoxton.RELEASE")
+    }
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	jcenter()
+	maven { url 'https://repo.spring.io/milestone' }
+	maven { url 'https://repo.spring.io/snapshot' }
+	maven { url "http://repo.spring.io/libs-snapshot" }
+	maven { url "https://mvnrepository.com/artifact" }
+	maven { url "https://plugins.gradle.org/m2/" }
+	
+maven {
+    url 'https://pkgs.dev.azure.com/MyCompanyInIndia/15786201-78d9-4168-aef2-c42330881236/_packaging/MyArtifactory/maven/v1'
+    name 'MyArtifactory'
+    authentication {
+        basic(BasicAuthentication)
+    }
+    
+}	
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	//implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	
+compile group: 'net.linguica.maven-settings', name: 'net.linguica.maven-settings.gradle.plugin', version: '0.5', ext: 'pom'
+	
+	//implementation 'mysql:mysql-connector-java'
+	compileOnly 'org.projectlombok:lombok'
+	compileOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+test {
+	useJUnitPlatform()
+}
